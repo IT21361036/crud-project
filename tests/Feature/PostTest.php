@@ -21,5 +21,5 @@ class PostTest extends TestCase
         $this->assertEquals('Test Post', $post->title);
         $this->assertEquals('This is a test post.', $post->body);
     }
-
+//updated create test case
 }
