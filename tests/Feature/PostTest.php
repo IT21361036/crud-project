@@ -40,4 +40,15 @@ class PostTest extends TestCase
         $this->assertDatabaseHas('posts', $newData); 
     }
 
+
+    public function testPostDelete()
+    {
+        $post = Post::factory()->create();
+
+        $response = $this->delete(route('posts.destroy', $post));
+
+        $response->assertStatus(302); 
+        $this->assertDatabaseMissing('posts', ['id' => $post->id]); 
+    }
+
 }
