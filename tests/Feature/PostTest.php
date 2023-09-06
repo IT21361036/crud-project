@@ -9,7 +9,7 @@ use App\Models\Post;
 
 class PostTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase,WithFaker;
 
     public function test_can_create_post()
     {
@@ -21,5 +21,23 @@ class PostTest extends TestCase
         $this->assertEquals('Test Post', $post->title);
         $this->assertEquals('This is a test post.', $post->body);
     }
-//updated create test case
+
+
+    public function testPostUpdate()
+    {
+        $post = Post::factory()->create();
+        $newData = [
+            'title' => $this->faker->sentence,
+            'body' => $this->faker->paragraph,
+        ];
+
+        $response = $this->put(route('posts.update', $post), $newData);
+
+        $response->assertStatus(302); 
+        dd($post->fresh()->toArray()); 
+        dd($response->content()); 
+
+        $this->assertDatabaseHas('posts', $newData); 
+    }
+
 }
