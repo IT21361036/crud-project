@@ -24,6 +24,7 @@ class PostController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        // dd('store');
         $validated = $request->validate([
             'title' => ['required', 'max:50'],
             'body' => ['required'],
@@ -34,7 +35,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        //
+        
     }
 
     /**
