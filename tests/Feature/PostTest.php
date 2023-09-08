@@ -1,6 +1,7 @@
 <?php
 
 namespace Tests\Feature;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -18,8 +19,11 @@ class PostTest extends TestCase
             'body' => 'This is a test post.',
         ];
 
-        $response = $this->post('/api/store', $newData);
-        // $response = $this->post(route('posts.store'), $newData);
+        $user = User::factory()->create(); 
+        $this->actingAs($user);
+
+        //$response = $this->post('/api/store', $newData);
+        $response = $this->post(route('posts.store'), $newData);
         $response->assertStatus(302);
         $this->assertDatabaseHas('posts', $newData); 
     }//corrected test case -1
@@ -72,5 +76,6 @@ class PostTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertDontSee($post->title);
-    }
+    }//correct view test case
+
 }

@@ -16,7 +16,7 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
-
+    //create
     public function create(): View
     {
         return view('posts.create');
@@ -38,17 +38,13 @@ class PostController extends Controller
         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    //edit
     public function edit(Post $post)
     {
         return view('posts.edit', compact('post'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    //update
     public function update(Request $request, Post $post)
     {
         $validated = $request->validate([
@@ -59,9 +55,6 @@ class PostController extends Controller
         return redirect(route('posts.index'))->with('success', 'Post updated.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Post $post)
     {
         $post->delete();
